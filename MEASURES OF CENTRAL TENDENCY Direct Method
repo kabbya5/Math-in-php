@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+<?php
+	$profite = array([200,400],[400,600],[600,800],[800,1000],[1000,1200],[1200,1400],[1400,1600]);
+	
+	$f = array(500,300,280,120,100,80,20);
+	
+	$n= array_sum($f);
+	$count = count($profite);
+	
+	$fx = array();
+	
+	for($i = 0; $i < $count; $i++){
+	  
+	  $n1 = count($profite[$i]);
+	  $t = array_sum($profite[$i]);
+	  
+	  $value = ($t/$n1) * $f[$i] ;
+	  array_push($fx,$value);
+	  
+	  
+	}
+	
+	$FX = array_sum($fx);
+	
+	$X = round($FX/$n,2);
+	
+	echo "Total Frequency is $n and FX is $FX ant result will be $X"
+	
+	
+?>
+
+</body>
+</html>
