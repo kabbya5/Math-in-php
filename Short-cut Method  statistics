@@ -1,0 +1,37 @@
+<?php
+	$profite = array([200,400],[400,600],[600,800],[800,1000],[1000,1200],[1200,1400],[1400,1600]);
+	$f = array(500,300,280,120,100,80,20);
+	$I = abs($profite[0][0] - $profite[0][1]); //$i = class intervel abs return positive result;
+	$X = [];
+	$d = [];
+	$N = array_sum($f);
+	
+	$count = sizeof($profite);
+	
+	for ($i=0; $i < $count; $i++ ){
+	  $mid_point = array_sum($profite[$i]) / count($profite[$i]); // X = tatal value / tatal number of Quentity;
+	  array_push($X,$mid_point); // add new $mid_point array of accoding to $profite;
+	  
+	} 
+  $length = count($X);
+  $half_length = $length / 2; // Divide length by 2
+  $median_index = (int) $half_length; // Convert to integer
+  $A = $X[$median_index]; // Get median number
+
+  for ($i=0;$i<$count; $i++){
+    $d_value = ($X[$i] - $A)/$I;
+    array_push($d, $d_value);
+  } 
+  
+  function fd($f,$d){
+    return $f*$d;
+  }
+
+  $fd_value = array_map('fd',$f,$d);
+  
+  $fd = array_sum ($fd_value);
+  
+	$result = round($A+($fd/$N)*$I , 2);
+	
+	echo "A = $A,fd = $fd, N = $N, I = $I and the result will be $result";
+?>
