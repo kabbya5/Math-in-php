@@ -1,0 +1,78 @@
+<?php
+	class StaticSticMatch {
+	  private $profits = array();
+	  private $frequecy = array();
+	  private $mid_point = array();
+	  private $cf, $class_intervel, $tatal_frequency;
+	  private $average_profit, $median_profit, $modal_profite, $deviation;
+	  
+	  function __construct(array $profits,array $frequecy){
+	    array_push($this->profits,$profits);
+	    array_push($this->frequecy,$frequecy);
+	  }
+	  
+	  function getProfit(){
+	    $profits = $this->profits;
+	     $count = count($profits);
+  	    for($i =0; $i < $count; $i++){
+  	     print_r($profits[$i]);
+  	    }
+	  }
+	  
+	  function getFrequency(){
+	    $frequecy = $this->frequecy;
+	    print_r($frequecy);
+	  }
+	  
+    function getMidPoint(){
+	    $profits = $this->profits;
+	    $count = count($profits);
+	    
+	    foreach($profits as $key=>$profite){
+	      $sum = array_sum($profite[0] + $profite[1]);
+	      $mid = $sum/2;
+	      array_push($this->mid_point,$mid); 
+	    }
+	   // for ($i=0; $i < $count; $i++ ){
+	   //   $sum = $profits[]
+	   //   array_push($this->mid_point,$mid); 
+	   //   echo count($profits[2]);
+	   // } 
+	    
+	    return $this->mid_point;
+	  }
+	  
+	  
+	  function setFrquency(array $frequecy){
+	    $this->frequecy = $frequecy;
+	  }
+	  
+	  function setProfit(array $profits){
+	    $this->profits = $profits;
+	   
+	  }
+	  
+	}
+	
+	$f1 = new StaticSticMatch(
+	  array(
+	      [200,400],
+	      [400,600],
+	      [600,800],
+	      [800,1000],
+	      [1000,1200],
+	      [1200,1400],
+	      [1400,1600],
+	    ),
+	    array(
+	        500,
+	        300,
+	        280,
+	        120,
+	        100,
+	        80,
+	        20,
+	      )
+	  );
+	  print_r($f1->getMidPoint());
+?>
