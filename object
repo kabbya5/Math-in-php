@@ -3,12 +3,31 @@
 	  private $profits = array();
 	  private $frequecy = array();
 	  private $mid_point = array();
-	  private $cf, $class_intervel, $tatal_frequency;
-	  private $average_profit, $median_profit, $modal_profite, $deviation;
+	  private $cf,$profites_fx = [],
+	  $class_intervel, $tatal_frequency;
+	  private $average_profite, $median_profite, $modal_profite, 
+	  $deviation;
 	  
 	  function __construct(array $profits,array $frequecy){
 	    array_push($this->profits,$profits);
 	    array_push($this->frequecy,$frequecy);
+	    
+	    //profits mid_point 
+	    
+	    foreach($profits as $key=>$profite){
+	      $sum = ($profite[0] + $profite[1]);
+	      $mid = $sum/2;
+	      array_push($this->mid_point,$mid); 
+	    }
+	    
+	    function profitsFXValue (f,x){
+	      return f * x;
+	    }
+	    
+	    $this->profites_fx = array_map('profitsFXValue',$this->frequecy,$this->mid_point);
+	    
+	    
+	    
 	  }
 	  
 	  function getProfit(){
@@ -18,39 +37,27 @@
   	     print_r($profits[$i]);
   	    }
 	  }
+	   function setProfit(array $profits){
+	    $this->profits = $profits;
+	   
+	  }
 	  
 	  function getFrequency(){
 	    $frequecy = $this->frequecy;
 	    print_r($frequecy);
 	  }
-	  
+	   function setFrquency(array $frequecy){
+	    $this->frequecy = $frequecy;
+	  }
+	 
     function getMidPoint(){
-	    $profits = $this->profits;
-	    $count = count($profits);
-	    
-	    foreach($profits as $key=>$profite){
-	      $sum = array_sum($profite[0] + $profite[1]);
-	      $mid = $sum/2;
-	      array_push($this->mid_point,$mid); 
-	    }
-	   // for ($i=0; $i < $count; $i++ ){
-	   //   $sum = $profits[]
-	   //   array_push($this->mid_point,$mid); 
-	   //   echo count($profits[2]);
-	   // } 
-	    
 	    return $this->mid_point;
 	  }
 	  
-	  
-	  function setFrquency(array $frequecy){
-	    $this->frequecy = $frequecy;
+	  function getFrofiteFxValue(){
+	    print_r($this->profites_fx);
 	  }
-	  
-	  function setProfit(array $profits){
-	    $this->profits = $profits;
-	   
-	  }
+	 
 	  
 	}
 	
@@ -74,5 +81,5 @@
 	        20,
 	      )
 	  );
-	  print_r($f1->getMidPoint());
+	  $fi->getFrofiteFxValue();
 ?>
