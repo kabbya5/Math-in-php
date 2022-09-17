@@ -1,85 +1,40 @@
 <?php
-	class StaticSticMatch {
-	  private $profits = array();
-	  private $frequecy = array();
-	  private $mid_point = array();
-	  private $cf,$profites_fx = [],
-	  $class_intervel, $tatal_frequency;
-	  private $average_profite, $median_profite, $modal_profite, 
-	  $deviation;
-	  
-	  function __construct(array $profits,array $frequecy){
-	    array_push($this->profits,$profits);
-	    array_push($this->frequecy,$frequecy);
-	    
-	    //profits mid_point 
-	    
-	    foreach($profits as $key=>$profite){
-	      $sum = ($profite[0] + $profite[1]);
-	      $mid = $sum/2;
-	      array_push($this->mid_point,$mid); 
-	    }
-	    
-	    function profitsFXValue (f,x){
-	      return f * x;
-	    }
-	    
-	    $this->profites_fx = array_map('profitsFXValue',$this->frequecy,$this->mid_point);
-	    
-	    
-	    
-	  }
-	  
-	  function getProfit(){
-	    $profits = $this->profits;
-	     $count = count($profits);
-  	    for($i =0; $i < $count; $i++){
-  	     print_r($profits[$i]);
-  	    }
-	  }
-	   function setProfit(array $profits){
-	    $this->profits = $profits;
-	   
-	  }
-	  
-	  function getFrequency(){
-	    $frequecy = $this->frequecy;
-	    print_r($frequecy);
-	  }
-	   function setFrquency(array $frequecy){
-	    $this->frequecy = $frequecy;
-	  }
-	 
-    function getMidPoint(){
-	    return $this->mid_point;
-	  }
-	  
-	  function getFrofiteFxValue(){
-	    print_r($this->profites_fx);
-	  }
-	 
-	  
-	}
-	
-	$f1 = new StaticSticMatch(
-	  array(
-	      [200,400],
-	      [400,600],
-	      [600,800],
-	      [800,1000],
-	      [1000,1200],
-	      [1200,1400],
-	      [1400,1600],
-	    ),
-	    array(
-	        500,
-	        300,
-	        280,
-	        120,
-	        100,
-	        80,
-	        20,
-	      )
+	$profite = array(
+	    [200,400],
+	    [400,600],
+	    [600,800],
+	    [800,1000],
+	    [1000,1200],
+	    [1200,1400],
+	    [1400,1600],
 	  );
-	  $fi->getFrofiteFxValue();
+	$frequency = array(
+	    500,300,280,120,100,80,20
+	  );
+	  
+	  $profite_fx = []; $profite_mid = [];
+	  
+	  $count = count($profite);
+	  
+	  //calculate mid point \
+	  
+	  for ($i = 0;$i < $count ; $i++ ){
+	    $mid = array_sum($profite[$i]) / 2;
+	    array_push($profite_mid,$mid);
+	  } 
+	  
+	  function fxValue ($mid,$f){
+	    return $mid * $f;
+	  }
+	  $profite_fx = array_map('fxValue', $profite_mid,$frequency);
+	  
+	  $total_frequency = array_sum($frequency);
+	  $total_profite_fx = array_sum($profite_fx);
+	  
+	  $avarage_profite  = $total_profite_fx / $total_frequency;
+	  
+	  echo "Total Frequency is $total_frequency .\n";
+	  echo "Toal Profite is $total_profite_fx .\n";
+	  
+	  echo " The aveaage profite is $avarage_profite .\n";
 ?>
