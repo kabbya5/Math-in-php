@@ -3,8 +3,8 @@
 	  private $profits = array();
 	  private $frequecy = array();
 	  private $mid_point = array();
-	  private $cf,$profites_fx = [],
-	  $class_intervel, $tatal_frequency;
+	  private $cf,$profites_fx = [],$value_of_d =[], $value_of_fd =[];
+	  private $class_intervel, $total_fd_value, $tatal_frequency, $mid_point_A;
 	  private $average_profite, $median_profite, $modal_profite, 
 	  $deviation;
 	  
@@ -12,22 +12,42 @@
 	    array_push($this->profits,$profits);
 	    array_push($this->frequecy,$frequecy);
 	    
-	    //profits mid_point 
+	    $this->total_frequency = array_sum($frequecy);
 	    
+	    
+	   //class_intervel 
+	    $this->class_intervel = $profits[0][1] - $profits[0][0];
+	    
+	    //profits mid_point 
+	   
 	    foreach($profits as $key=>$profite){
 	      $sum = ($profite[0] + $profite[1]);
 	      $mid = $sum/2;
 	      array_push($this->mid_point,$mid); 
 	    }
 	    
-	    function profitsFXValue (f,x){
-	      return f * x;
+	    // calculate Mid Points A;
+	     
+	    $length_of_profits = count($profits);
+	    $mid_point_index = floor($length_of_profits/2);
+	    $this->mid_point_A = $this->mid_point[$mid_point_index];
+	    
+	    // calculate value of d 
+	    
+	    foreach($this->mid_point as $mid){
+	      $d = ($mid - $this->mid_point_A) /$this->class_intervel;
+	      array_push($this->value_of_d,$d);
 	    }
 	    
-	    $this->profites_fx = array_map('profitsFXValue',$this->frequecy,$this->mid_point);
+	    // calculate value of value_of_fd
 	    
+	    $length_of_frequency = count($frequecy);
 	    
+	    for($i=0;$i<$length_of_frequency;$i++){
+	      array_push($this->value_of_fd, $frequecy[$i] * $this->value_of_d[$i]);
+	    }
 	    
+	    $this->total_fd_value = array_sum($this->value_of_fd);
 	  }
 	  
 	  function getProfit(){
@@ -51,14 +71,26 @@
 	  }
 	 
     function getMidPoint(){
-	    return $this->mid_point;
+	    print_r ($this->mid_point);
 	  }
 	  
 	  function getFrofiteFxValue(){
 	    print_r($this->profites_fx);
 	  }
-	 
 	  
+	  function getAverageProfite ($average_profite = 0){
+	    $A = $this->mid_point_A;
+	    $fd = $this->total_fd_value;
+	    $n = $this->total_frequency;
+	    $i = $this->class_intervel;
+	    
+	    $average_profite = round(($A + ($fd/$n) * $i),2);
+	    
+	    $this->average_profite = $average_profite;
+	    
+	    print_r($average_profite);
+	    
+	  }
 	}
 	
 	$f1 = new StaticSticMatch(
@@ -81,5 +113,6 @@
 	        20,
 	      )
 	  );
-	  $fi->getFrofiteFxValue();
+	  $f1->getMidPoint();
+	  $f1->getAverageProfite();
 ?>
