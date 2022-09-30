@@ -1,9 +1,9 @@
 <?php
 	class StaticSticMatch {
-	  private $profits = array();
+	  private $profits = [];
 	  private $frequecy = array();
 	  private $mid_point = array();
-	  private $cf,$profites_fx = [],$value_of_d =[], $value_of_fd =[];
+	  private $cf=[],$profites_fx = [],$value_of_d =[], $value_of_fd =[];
 	  private $class_intervel, $total_fd_value, $tatal_frequency, $mid_point_A;
 	  private $average_profite, $median_profite, $modal_profite, 
 	  $deviation;
@@ -48,6 +48,15 @@
 	    }
 	    
 	    $this->total_fd_value = array_sum($this->value_of_fd);
+	    
+	    // calculate the fc 
+	    
+	    $cf = 0;
+	    for($i=0;$i<$length_of_frequency;$i++){
+	      $cf += $frequecy[$i];
+	      array_push($this->cf,$cf);
+	      
+	    }
 	  }
 	  
 	  function getProfit(){
@@ -88,8 +97,38 @@
 	    
 	    $this->average_profite = $average_profite;
 	    
-	    print_r($average_profite);
+	    echo "The average profites is $average_profite" . "\n";
 	    
+	  }
+	  function setMeClass($value,$array){
+	    $data;
+	    $count = count($array);
+      for($i =0;$i<$count;$i++){
+        if($value <= $array[$i]){
+          $data['key'] = array_search($array[$i],$array);
+          $data['value'] = $array[$i-1];
+          $data['frequecy'] = $this->frequecy[0][$i];
+          break;
+        }
+      }
+      return $data;
+	  }
+	  function calculateMedian($data,$profits,$n){
+	    $L = $profits[0][$data['key']][0];
+	    $pcf = $data['value'];
+	    $frequecy = $data['frequecy'];
+	    $class_intervel = $this->class_intervel;
+	    
+	    
+	    $meian =round(((($n -$pcf) / $frequecy) *200)+$L,2);
+	    return $meian;
+	  }
+	  function getMidian(){
+	    $n = $this->total_frequency /2;
+	    $data = $this->setMeClass($n,$this->cf);
+	    $midian = $this->calculateMedian($data,$this->profits,$n);
+	    
+	    echo "The Midian Value is $midian" ."\n";
 	  }
 	}
 	
@@ -113,6 +152,6 @@
 	        20,
 	      )
 	  );
-	  $f1->getMidPoint();
-	  $f1->getAverageProfite();
+	  $f1->getMidian();;
+;
 ?>
