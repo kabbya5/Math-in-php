@@ -1,30 +1,33 @@
 <?php
-
-  // 1. Input Voltage Range: VIN(min) and VIN(max)
-  // 2. Nominal Output Voltage: VOUT
-  // 3. Maximum Output Current: IOUT(max)
-  // 4. the duty cycle = D
-  // 5. Efficiency = 80%,
-  
-
-
-	function calculationBootsConverterParamiter($Vin,$Vo,$n,$fs,$li){
+	function calculationBootsConverterParamiter($Vin,$Vo,$n,$P,$fs){
 	    
 	    $Pn = makePercentance($n);
 	
 	    $D = 1-($Vin * $Pn/$Vo);
 	    echo $D ."\n";
 	    
-	    $L = calculatedLeactance($Vin,$D,$fs,$li);
-	    echo $L;
+	    $IL = calculatedInductanceCurrent($P,$Vin);
+	    echo number_format($IL,2) ."\n";
+	    
+	    $Io = $P/$Vo;
+	    echo $Io ."\n";
+	    
+	    $RI = 0.3 * $IL;
+	    
+	    $L = calculatedInductance($Vin,$D,$fs,$RI);
+	    echo $L ."\n";
+
 	}
 	
-	function calculatedLeactance($Vin,$D,$fs = 50,$Li){
-	   $Vmin = $Vin - 100;
-	   $PLi = makeInductivePercentance($Li);
-	   return (($Vmin * $D) /($fs * $PLi));
+	function calculatedInductance($Vin,$D,$fs,$RI){
+	   $Vmin = $Vin;
+	   return (($Vmin * $D) /($fs * $RI));
 	}
 	
+	function calculatedInductanceCurrent($P,$Vin){
+	  $IL = $P/$Vin;
+	  return $IL;
+	}
 	function makePercentance($n){
     	return $n/100;
   }
@@ -36,5 +39,5 @@
   }
 	
 	
-	calculationBootsConverterParamiter(12,20,100,50,7.308);
+	calculationBootsConverterParamiter($Vin=12,$Vo =20,$N=100,$P=100,$fs=25000);
 ?>
