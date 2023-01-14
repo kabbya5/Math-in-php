@@ -16,7 +16,24 @@
 	    
 	    $L = calculatedInductance($Vin,$D,$fs,$RI);
 	    echo $L ."\n";
+	    
+	    $RV =  0.1 * $Vo;
+	    $C = calculatedCapacitor($Io,$D,$fs,$RV);
+	    echo $C ."\n";
+	    
+	    $R =  pow($Vo,2)/$P;
+	    
+	    echo $R . "\n";
+	    
+	    $p = pow(410,2)/150;
+	    echo $p . "\n";
+	    
+	    echo $p * 0.80/$Vin ."IL amp \n";
 
+	}
+	
+	function calculatedCapacitor($Io,$D,$fs,$RV){
+	    return ($Io*$D) /($fs*$RV);
 	}
 	
 	function calculatedInductance($Vin,$D,$fs,$RI){
@@ -39,5 +56,5 @@
   }
 	
 	
-	calculationBootsConverterParamiter($Vin=12,$Vo =20,$N=100,$P=100,$fs=25000);
+	calculationBootsConverterParamiter($Vin=230,$Vo =410,$N=100,$P=1120,$fs=25000);
 ?>
