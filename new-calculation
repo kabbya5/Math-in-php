@@ -4,17 +4,29 @@
 	$P = 1120;
 	
 	$Vrm = 380 * 0.7071;
-	
 	$R = $Vo / $Vrm;
 	echo $R . "RRR \n";
 	
-	$F = 60000;
-	
+	$F = 50;
 	$Dt = $R/$F*(1+$R);
 	echo $Dt ."DTTT \n";
 	
 	$DtVrm = pow(4.6309613980169,-5) *$Vrm;
 	$L = ($DtVrm *0.95) /( 2*$P);
 	echo $L . "LLL \n";
-
+	
+	$Io = $Vo/$R;
+	$DV = 0.1 * $Vo;
+	$pi = pi();
+	$W = 2*$pi*$F;
+	
+	$Vp = 2*230;
+	$WVo = $W *$Vo;
+	$IoDV = $Io/$DV;
+  $PiW = $pi/$W;
+  $VpsWVo = $Vp/$WVo;
+  
+  $C = $IoDV *($PiW - $VpsWVo);
+  
+  echo $C;
 ?>
