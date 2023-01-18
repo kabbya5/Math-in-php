@@ -1,0 +1,60 @@
+<?php
+	function calculationBootsConverterParamiter($Vin,$Vo,$n,$P,$fs){
+	    
+	    $Pn = makePercentance($n);
+	
+	    $D = 1-($Vin * $Pn/$Vo);
+	    echo $D ."\n";
+	    
+	    $IL = calculatedInductanceCurrent($P,$Vin);
+	    echo number_format($IL,2) ."\n";
+	    
+	    $Io = $P/$Vo;
+	    echo $Io ."\n";
+	    
+	    $RI = 0.3 * $IL;
+	    
+	    $L = calculatedInductance($Vin,$D,$fs,$RI);
+	    echo $L ."\n";
+	    
+	    $RV =  0.1 * $Vo;
+	    $C = calculatedCapacitor($Io,$D,$fs,$RV);
+	    echo $C ."\n";
+	    
+	    $R =  pow($Vo,2)/$P;
+	    
+	    echo $R . "\n";
+	    
+	    $p = pow(410,2)/150;
+	    echo $p . "\n";
+	    
+	    echo $p * 0.80/$Vin ."IL amp \n";
+
+	}
+	
+	function calculatedCapacitor($Io,$D,$fs,$RV){
+	    return ($Io*$D) /($fs*$RV);
+	}
+	
+	function calculatedInductance($Vin,$D,$fs,$RI){
+	   $Vmin = $Vin;
+	   return (($Vmin * $D) /($fs * $RI));
+	}
+	
+	function calculatedInductanceCurrent($P,$Vin){
+	  $IL = $P/$Vin;
+	  return $IL;
+	}
+	function makePercentance($n){
+    	return $n/100;
+  }
+  
+  function makeInductivePercentance($Li){
+    $random = rand(20,40);
+    $deltLi = makePercentance($random);
+    return $Li * $deltLi;
+  }
+	
+	
+	calculationBootsConverterParamiter($Vin=230,$Vo =410,$N=100,$P=1120,$fs=25000);
+?>
