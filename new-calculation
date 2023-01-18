@@ -1,0 +1,20 @@
+<?php
+	$Vo = 400;
+	$Vin = 230;
+	$P = 1120;
+	
+	$Vrm = 380 * 0.7071;
+	
+	$R = $Vo / $Vrm;
+	echo $R . "RRR \n";
+	
+	$F = 60000;
+	
+	$Dt = $R/$F*(1+$R);
+	echo $Dt ."DTTT \n";
+	
+	$DtVrm = pow(4.6309613980169,-5) *$Vrm;
+	$L = ($DtVrm *0.95) /( 2*$P);
+	echo $L . "LLL \n";
+
+?>
