@@ -4,22 +4,22 @@
 	    $Pn = makePercentance($n);
 	
 	    $D = 1-($Vin * $Pn/$Vo);
-	    echo $D ."\n";
+	    echo $D ."DDD \n";
 	    
 	    $IL = calculatedInductanceCurrent($P,$Vin);
-	    echo number_format($IL,2) ."\n";
+	    echo number_format($IL,2) ."IL \n";
 	    
 	    $Io = $P/$Vo;
-	    echo $Io ."\n";
+	    echo $Io ."io io \n";
 	    
 	    $RI = 0.3 * $IL;
 	    
 	    $L = calculatedInductance($Vin,$D,$fs,$RI);
-	    echo $L ."\n";
+	    echo $L ." LLL \n ";
 	    
 	    $RV =  0.1 * $Vo;
 	    $C = calculatedCapacitor($Io,$D,$fs,$RV);
-	    echo $C ."\n";
+	    echo $C ."CCC \n";
 	    
 	    $R =  pow($Vo,2)/$P;
 	    
@@ -28,7 +28,18 @@
 	    $p = pow(410,2)/150;
 	    echo $p . "\n";
 	    
+	    $Io  = $Vo / $R;
+	    
+	    echo $Io ."Io Lo /n";
 	    echo $p * 0.80/$Vin ."IL amp \n";
+	    
+	    $fs = pow(1000,-6);
+	    
+	    $FsC = calculatedCapacitor($Io,$D,$fs,$RV);
+	    
+	    echo $FsC . "fff \n";
+	    
+	    echo pow(2.975,16);
 
 	}
 	
@@ -56,5 +67,5 @@
   }
 	
 	
-	calculationBootsConverterParamiter($Vin=230,$Vo =410,$N=100,$P=1120,$fs=25000);
+	calculationBootsConverterParamiter($Vin=100,$Vo =00,$N=100,$P=1120,$fs=37652300);
 ?>
