@@ -12,7 +12,7 @@
 	echo $Dt ."DTTT \n";
 	
 	$DtVrm = pow(4.6309613980169,-5) *$Vrm;
-	$L = ($DtVrm *0.95) /( 2*$P);
+	$L = ($DtVrm *95) /( 2*$P);
 	echo $L . "LLL \n";
 	
 	$Io = $Vo/$R;
@@ -20,7 +20,7 @@
 	$pi = pi();
 	$W = 2*$pi*$F;
 	
-	$Vp = 2*230;
+	$Vp = 2*230*1.414;
 	$WVo = $W *$Vo;
 	$IoDV = $Io/$DV;
   $PiW = $pi/$W;
