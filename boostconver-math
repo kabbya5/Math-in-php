@@ -1,0 +1,38 @@
+<?php
+	class CalculateBoostConverte{
+	  public $Vin;
+	  public $Vout;
+	  public $Mvdc; //Mvdc min max
+	  public $Lmin;
+	  public $RImax;
+	  public $Dmax; //max min;
+
+	  
+	  public function __construct($Vin,$Vout){
+	    $this->Vin = $Vin;
+	    $this->Vout = $Vout;
+	    $this->calculateMvdc();
+	    $this->calculateDmax();
+	    $this->output();
+	  }
+	  
+	  public function calculateMvdc(){
+	    $this->Mvdc = $this->Vout/$this->Vin; //Vin(max,min)
+	  }
+	  
+	  public function calculateDmax(){
+	    $n = ($this->Vout/$this->Vin);
+	    echo $n;
+	    $this->Dmax = (1 - n)/$this->Mvdc;
+	  }
+	  public function output(){
+	    echo 'The output of test' ."\n";
+	    echo "Mvdc is: ".number_format($this->Mvdc,2). "\n";
+	    echo "Dmax is :" .$this->Dmax ."\n";
+	    echo  -(0.419 * 1.53) +1;
+	  }
+	  
+	}
+	
+	$boostConvert = new CalculateBoostConverte(325.27,400);
+?>
